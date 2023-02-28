@@ -1,0 +1,25 @@
+#GeoIP ASN Databaseダウンロードの仕方: https://flatray.com/geolite2/geolite2.html
+# Check Breach data: https://haveibeenpwned.com
+# License: GF71oaZdzJaF8B6i - phamsonhvhc
+
+# Downloaded ASN File with "geoip_db/download.sh"
+
+# !/usr/bin/bash
+curl "https://download.maxmind.com/app/geoip_download_by_token?edition_id=GeoLite2-ASN&date=20230113&suffix=tar.gz&token=v2.local.Wjvgs1vhO1XcDnzDe1tpGgUk0ktb3pTygjNI2XuzmheB7eLSL15Bn6cb6G9fkIJdDeZR0VILVcMKpRAxbE8CyonRU-ch6wZZTkBDOPfmbQAfsoPGwJnZvp0kl2ZedlUyP-HPgIyI2lYHp6Ow4TZ5t7r3iX6RDILEUhrYVWPCIeKqbLvaxrnGfaF_tAn3JO1I3JOU2Q" -o GeoIP_ASN.gz
+tar -xf GeoIP_ASN.tar.gz
+
+# Step 1: Get Top AS Number
+# python top_asn.py <port> <pcap_file> <out_file.csv>
+python top_asn.py 445 ../../pcap/20200210200001.pcap 445_asn.csv
+
+# Step 2:Get [Timestamp - AS - NDA's Destination IP] infor (All Packets)
+# python asn_dest.py <port> <pcap_file> <output-file.csv>
+python asn_dest.py 445 ../../pcap/20200210200001.pcap 445_port.csv
+
+# Step 3: Get Packets info of particular AS (Ex: AS45899)
+awk -F, '{if($2==45899){print $0}}' 445_port.csv > AS45899.csv
+
+# Plot
+#gnuplot -c plot.p <output.png> <Title> <Input.csv>
+gnuplot -c plot.p as45899.png AS45899 AS45899.csv
+

@@ -1,0 +1,6 @@
+--2023-01-13 11:03:29--  https://download.maxmind.com/app/geoip_download_by_token?edition_id=GeoLite2-ASN
+download.maxmind.com (download.maxmind.com) をDNSに問いあわせています... 104.16.38.47, 104.16.37.47, 2606:4700::6810:262f, ...
+download.maxmind.com (download.maxmind.com)|104.16.38.47|:443 に接続しています... 接続しました。
+HTTP による接続要求を送信しました、応答を待っています... 401 Unauthorized
+
+Username/Password による認証に失敗しました。
